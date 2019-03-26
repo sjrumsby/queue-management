@@ -81,9 +81,11 @@ export const store = new Vuex.Store({
     editedGroupBooking: null,
     editExamSuccess: false,
     examAlertMessage: '',
+    loginAlertMessage: '',
     examEditSuccessMessage: '',
     examEditFailureMessage: '',
     examDismissCount: 0,
+    loginDismissCount: 0,
     examsTrackingIP: false,
     examSuccessDismiss : 0,
     examMethods: [
@@ -797,6 +799,7 @@ export const store = new Vuex.Store({
           }
           resolve(resp)
         }, error => {
+          context.commit('setLoginAlert', "Your are not setup in TheQ, please contact RMSHelp to be setup.")
           reject(error)
         })
       })
@@ -2061,6 +2064,11 @@ export const store = new Vuex.Store({
       state.examAlertMessage = payload
       state.examDismissCount = 999
     },
+
+    setLoginAlert(state, payload) {
+      state.loginAlertMessage = payload
+      state.loginDismissCount = 999
+    },
   
     setExamEditSuccessMessage(state, payload) {
       state.examEditSuccessMessage = payload
@@ -2111,6 +2119,10 @@ export const store = new Vuex.Store({
   
     examDismissCountDown(state, payload) {
       state.examDismissCount = payload
+    },
+
+    loginDismissCountDown(state, payload){
+      state.loginDismissCount = payload
     },
   
     examSuccessCountDown(state, payload) {
